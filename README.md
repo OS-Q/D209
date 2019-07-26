@@ -1,58 +1,26 @@
-﻿# D209：[局域服务](https://github.com/OS-Q/D209)
+﻿# [modbus](https://github.com/OS-Q/D210)
 
 [![sites](OS-Q/OS-Q.png)](http://www.OS-Q.com)
 
-#### 归属信息管控：[W30](https://github.com/OS-Q/W30)
+#### 归属采集单元：[W2](https://github.com/OS-Q/W2)
 
-#### 关于系统架构：[OS-Q](https://github.com/OS-Q/OS-Q)
+#### 关于系统架构：[OS-Q](https://github.com/OS-Q)
 
-## [平台描述](https://github.com/OS-Q/D209/wiki) 
+Edge-Q -> 体系 Q[1,4] -> 节点 M[1,12] -> 平台 W[1,52] -> 设备 D[1,365]
 
-局域服务设备，通过局域网络管道在固定范围发布信息和管理
-
-### [共用资源](OS-Q/)
+## [设备描述](https://github.com/OS-Q/D210/wiki) 
 
 
 
----
+### [收录资源](https://github.com/OS-Q/)
 
-- 边缘设备命名规则：体系 Q:[1,4] -> 节点 M:[1,12] -> 平台 W:[1,52] -> 设备 D:[1,365]
+* [文档](docs/)
+* [工程](project/)
 
-- naming patterns：system Q[1,4] -> node M[1,12] -> platform W[1,52] -> device D[1,365]
+### [平台资源](https://github.com/sochub)
 
-## [同级设备](https://github.com/OS-Q/W30/wiki) 
+主控资料和选型方案详情可查阅
+[SoC资源平台](https://github.com/sochub)
 
-#### D204：[多屛显示](https://github.com/OS-Q/D204)
-
-通过多屛异显输出各种专业信息界面或交互界面
-
-#### D205：[微型主机](https://github.com/OS-Q/D205)
-
-通过HDMI或eDP连接外部显示器和键鼠外设交互
-
-#### D206：[集成投影](https://github.com/OS-Q/D206)
-
-通过光学投影的方式实现信息的空间呈现和演化
-
-#### D207：[语音交互](https://github.com/OS-Q/207)
-
-通过智能语音系统唤醒和识别处理，通过语音输出
-
-#### D208：[行为交互](https://github.com/OS-Q/D208)
-
-通过光学或传感器识别交互动作和相应执行输出
-
-#### -> D209：[局域服务](https://github.com/OS-Q/D209)
-
-通过局域网络将信息发布在对应的感知范围内
-
-#### D210：[广域服务](https://github.com/OS-Q/D210)
-
-通过光域网络将信息发布到对应的公网平台管理
-
----
-
-####  © qitas@qitas.cn
-###  [OS-Q redefined Operation System](http://www.OS-Q.com)
-####  @ 2019-2-26
-
+### [OS-Q : Operation System for edge devices](http://www.OS-Q.com/Edge/D210)
+####  2019-7-27
