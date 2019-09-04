@@ -1,26 +1,34 @@
-﻿# [modbus](https://github.com/OS-Q/D210)
-
+﻿# [标准设备](https://github.com/OS-Q/W38)
 [![sites](OS-Q/OS-Q.png)](http://www.OS-Q.com)
+#### 归属训练体系：[M9](https://github.com/OS-Q/M9)
+#### 关于系统架构：[OS-Q](https://github.com/OS-Q/OS-Q)
 
-#### 归属采集单元：[W2](https://github.com/OS-Q/W2)
+[EDGE-Q](https://github.com/OS-Q/EDGE-Q) -> Q[4] -> M[12] -> W[52] -> D[365] -> H[24] -> N[60] -> S[60]
 
-#### 关于系统架构：[OS-Q](https://github.com/OS-Q)
+## [工程描述](https://github.com/OS-Q/W38/wiki)
 
-Edge-Q -> 体系 Q[1,4] -> 节点 M[1,12] -> 平台 W[1,52] -> 设备 D[1,365]
+[标准设备](https://github.com/OS-Q/W38)归纳
 
-## [设备描述](https://github.com/OS-Q/D210/wiki) 
+## [工程资源](https://github.com/OS-Q/W38)
 
-
-
-### [收录资源](https://github.com/OS-Q/)
-
+* [资源](src/)
 * [文档](docs/)
 * [工程](project/)
 
-### [平台资源](https://github.com/sochub)
+### [拓扑结构](https://github.com/OS-Q/W38)
 
-主控资料和选型方案详情可查阅
-[SoC资源平台](https://github.com/sochub)
+* M9：[训练体系](https://github.com/OS-Q/M9)
+	* W37：[嵌入设备](https://github.com/OS-Q/W27)
+	* W38：[标准设备](https://github.com/OS-Q/W38)
+		* D190：[NULL](https://github.com/OS-Q/D190)
+		* D191：[NULL](https://github.com/OS-Q/D190)
+		* D192：[NULL](https://github.com/OS-Q/D190)
+		* D193：[NULL](https://github.com/OS-Q/D190)
+		* D194：[NULL](https://github.com/OS-Q/D190)
+		* D195：[NULL](https://github.com/OS-Q/D190)
+		* D196：[NULL](https://github.com/OS-Q/D196)
+	* W39：[插入设备](https://github.com/OS-Q/W29)
+	* W40：[高阶设备](https://github.com/OS-Q/W30)
 
-### [OS-Q : Operation System for edge devices](http://www.OS-Q.com/Edge/D210)
-####  2019-7-27
+### [OS-Q = Open Solutions | Open Source |  Operating System ](http://www.OS-Q.com/W38)
+####  2019-9-4
