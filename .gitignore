@@ -1,0 +1,5 @@
+*.db
+*.pio/
+*.vscode/
+*.map
+*.DS_Store

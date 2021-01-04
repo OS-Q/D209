@@ -10,14 +10,12 @@ typedef  void (*pFunction)(void);
 void Jump2App(uint32_t AppAddr)
 {
     pFunction Jump_To_Application;
-    uint32_t JumpAddress; 
-    
+    uint32_t JumpAddress;
+
     JumpAddress = *(__IO uint32_t*) (AppAddr + 4);
     Jump_To_Application = (pFunction) JumpAddress;
-      
     /* Initialize user application's Stack Pointer */
     __set_MSP(*(__IO uint32_t*) APPLICATION_ADDRESS);
-      
     /* Jump to application */
     Jump_To_Application();
 }
@@ -85,29 +83,29 @@ unsigned short CRC16(unsigned char* Buf,int BufLen,unsigned short sCRC)
 int CheckCodeBank(int BANK_ID_Flag)
 {
     uint16_t Size,Crc = 0;
-    
+
     uint8_t* BankAddr = (uint8_t*)(BANK_BASE + BANK_A_OFFSET); //BANKA
-    
+
     if(BANK_ID_Flag == BANK_ID_B)
     {
-       
-        BankAddr = (uint8_t*)(BANK_BASE + BANK_B_OFFSET);        
+
+        BankAddr = (uint8_t*)(BANK_BASE + BANK_B_OFFSET);
     }
-    
+
     //size2B,crc2B LE
-    Size = BankAddr[1]; Size <<= 8;  Size |= BankAddr[0];        
+    Size = BankAddr[1]; Size <<= 8;  Size |= BankAddr[0];
     if(Size > BANK_B_SIZE_KB_MAX * 1024 - 16)//for safe, error found
     {
         Size = BANK_B_SIZE_KB_MAX * 1024 - 16;
     }
-    
+
     Crc = CRC16(BankAddr+16,(int)Size,Crc);
-        
+
     if(((Crc & 0xFF) != BankAddr[2]) || (((Crc>>8) & 0xFF) != BankAddr[3]))
     {
         return 0; //failed
-    }        
-    
+    }
+
     return 1; //OK
 }
 
@@ -116,13 +114,13 @@ void ClearBank(int BANK_ID_Flag)
     int i,clearflag = 0;
     unsigned char* addr = (unsigned char*)(BANK_BASE + BANK_B_OFFSET);
     uint32_t BankAddr = (BANK_BASE + BANK_B_OFFSET);
-    
+
     if(BANK_ID_Flag == BANK_ID_A)
     {
         addr = (unsigned char*)(BANK_BASE + BANK_A_OFFSET);
         BankAddr = (BANK_BASE + BANK_A_OFFSET);
     }
-    
+
     for(i = 0 ; i < BANK_B_SIZE_KB_MAX * 1024; i ++)
     {
         if(0xff != *addr++)
@@ -131,7 +129,7 @@ void ClearBank(int BANK_ID_Flag)
             break; //not empty
         }
     }
-    
+
     if(clearflag)
     {
         FLASH_Unlock();
@@ -144,23 +142,23 @@ void ClearBank(int BANK_ID_Flag)
 }
 
 void CopyB2A(void)
-{ 
+{
     uint16_t i,Size;
     uint32_t BankAddrA = BANK_BASE + BANK_A_OFFSET,Data;
     unsigned char* addr = (unsigned char*)(BANK_BASE + BANK_B_OFFSET);
-    
+
     Size = addr[1]; Size <<= 8;  Size |= addr[0];
-    Size >>= 2;    
+    Size >>= 2;
     Size += 4;//header 16 bytes
 //    Size = 0x2000;
     if(Size > BANK_B_SIZE_KB_MAX * 256)//error
     {
-        Size = BANK_B_SIZE_KB_MAX * 256; 
+        Size = BANK_B_SIZE_KB_MAX * 256;
     }
-    
+
     //clear
     ClearBank(BANK_ID_A);
-    
+
     //copy
     //FLASH_Unlock();
     for(i = 0 ; i < Size ; i ++)
@@ -169,14 +167,14 @@ void CopyB2A(void)
          Data |= addr[2]; Data <<= 8;
         Data |= addr[1]; Data <<= 8;
         Data |= addr[0];
-        
+
         FLASH_ProgramWord(BankAddrA, Data);
-        
+
         BankAddrA += 4;
         addr += 4;
     }
     //FLASH_Lock();
-    
+
     //check
     if(!CheckCodeBank(BANK_ID_A))//Flash error????
     {
@@ -187,45 +185,45 @@ void CopyB2A(void)
 
 int main(void)
 {
-    /* Initialize Key Button mounted on STM320518-EVAL board */       
-    //STM_EVAL_PBInit(BUTTON_SEL/*BUTTON_KEY*/, BUTTON_MODE_GPIO);   
+    /* Initialize Key Button mounted on STM320518-EVAL board */
+    //STM_EVAL_PBInit(BUTTON_SEL/*BUTTON_KEY*/, BUTTON_MODE_GPIO);
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
-    
-#if 0//old version    
+
+#if 0//old version
     if(!CheckCodeBank(BANK_ID_A)) //if bank A is not OK
-    {    
+    {
         //check bankB
         if(CheckCodeBank(BANK_ID_B))
         {
-            CopyB2A(); 
+            CopyB2A();
         }
         else //error found and stop here
         {
             //while(1);
-        }        
+        }
     }
-    
-#else //new version    
-    
+
+#else //new version
+
     //check bankB
 		/***********B区没有CRC信息，校验不过*********************/
 //    if(CheckCodeBank(BANK_ID_B))
 //    {
-//        CopyB2A(); 
+//        CopyB2A();
 //    }
 		if( ((*(u32 *) 0x08009000)) != 0xFFFFFFFF )
 		{
 			CopyB2A();
-		}			
+		}
 #endif
-    
+
     ClearBank(BANK_ID_B);
-    
+
     Jump2App(APPLICATION_ADDRESS);
-    
-  /* Infinite loop */
-  while (1)
-  {
-  }
+
+    /* Infinite loop */
+    while (1)
+    {
+    }
 }
 
